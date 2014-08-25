@@ -11,7 +11,8 @@
     "angular-route": "1.2.5",
     "classie": "https://raw.githubusercontent.com/desandro/classie/master/classie.js",
     "modernizr.custom": "http://giorgioscappaticcio.co.uk/skin_ink/admin/js/modernizr.custom.js",
-    "uiMorphingButton_fixed": "http://giorgioscappaticcio.co.uk/skin_ink/admin/js/uiMorphingButton_fixed.js"
+    "uiMorphingButton_fixed": "http://giorgioscappaticcio.co.uk/skin_ink/admin/js/uiMorphingButton_fixed.js",
+    "font-awesome": "~4.1.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.5",

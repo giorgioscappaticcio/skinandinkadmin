@@ -1,0 +1,102 @@
+<div class="full-page-content" ng-show="fb_integration" id="fb_integration">
+	<pre>{{tattooData}}</pre>
+	<div class="col col-left">
+		<div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+	        <button type="button">SkinandInk <i class="fa fa-facebook-square"></i> Like Page</button>
+	        <div class="morph-content">
+	            <div>
+	                <div class="content-style-form content-style-form-1">
+	                    <span class="icon icon-close">Close the dialog</span>
+	                    <h2>SkinandInk <i class="fa fa-facebook-square"></i> Like Page</h2>
+	                    <form ng-repeat="info in studioInfo" ng-hide="displayForm">
+							<p>
+								<label for="fb_id">Facebook ID: </label>
+								<input type="text" name="fb_id" placeholder="{{info.fb_id}}" disabled="" />
+							</p>
+							<p>
+								<label for="fb_album">Facebook Album ID: </label>
+								<input type="text" name="fb_album" placeholder="{{info.fb_album}}" disabled="" />
+							</p>
+							<p>
+								<label for="fb_piercing_album">Facebook Piercing Album ID: </label>
+								<input type="text" name="fb_piercing_album" placeholder="{{info.fb_piercing_album}}" disabled=""/>
+							</p>
+							<p><button ng-click="showForm()">Edit</button></p>
+						</form>
+	                    <form ng-repeat="info in studioInfo" ng-show="displayForm">
+							<p>
+								<label for="fb_id">Facebook ID: </label>
+								<input type="text" name="fb_id" placeholder="{{info.fb_id}}" ng-model="formData.fb_id" />
+							</p>
+							<p>
+								<label for="fb_album">Facebook Album ID: </label>
+								<input type="text" name="fb_album" placeholder="{{info.fb_album}}" ng-model="formData.fb_album"/>
+							</p>
+							<p>
+								<label for="fb_piercing_album">Facebook Piercing Album ID: </label>
+								<input type="text" name="fb_piercing_album" placeholder="{{info.fb_piercing_album}}" ng-model="formData.fb_piercing_album"/>
+							</p>
+							<p>
+								<button ng-click="update_general_info()">Update</button>
+							</p>
+						</form>
+	                </div>
+	            </div>
+	        </div>
+	    </div><!-- morph-button -->
+	</div><!-- end col-left -->
+	<div class="col column-right">
+		<div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
+	        <button type="button">Tattoist <i class="fa fa-facebook-square"></i> Like Pages</button>
+	        <div class="morph-content">
+	            <div>
+	                <div class="content-style-form content-style-form-1">
+	                    <span class="icon icon-close" ng-click="resetForm()">Close the dialog</span>
+	                    <h2>Tattoist <i class="fa fa-facebook-square"></i> Like Pages</h2>
+	                    <!-- Display Tattoist -->
+	                    <form ng-repeat="tattoo in tattooInfo | orderBy:'nav_pos'" ng-hide="editTattoist">
+							<p>
+								<label for="fb_id">Tattoist Name: </label>
+								<input type="text" name="title" placeholder="{{tattoo.title}}" disabled="" />
+								<span class="sub-edit" ng-click="displayTattoistForm(tattoo.id)"><i class="fa fa-pencil-square-o"></i> Edit</span>
+							</p>
+							<!-- <p><button ng-click="showForm()">Edit</button></p> -->
+						</form>
+						<!-- Edit Tattoist -->
+	                    <form ng-repeat="tattoo in tattooInfo" ng-show="tattoo.id == tattooID">
+							<p>
+								<label for="fb_id">Tattoist Name: </label>
+								<input type="text" ng-minlength="1" name="tattoo_name" placeholder="{{tattoo.title}}" ng-model="tattooData.tattoo_name" />
+								<p ng-show="noName">Please enter a Tattoist name</p>
+							</p>
+							<p>
+								<label for="fb_id">Facebook ID: </label>
+								<input type="text" name="fb_id" placeholder="{{tattoo.fb_id}}" ng-model="tattooData.fb_id" />
+								<p ng-show="noFbID">Please enter a Tattoist Facebook ID</p>
+							</p>
+							<p>
+								<label for="fb_album">Facebook Album ID: </label>
+								<input type="text" name="fb_album" placeholder="{{tattoo.fb_album}}" ng-model="tattooData.fb_album"/>
+								<p ng-show="noFbAlbumID">Please enter a Tattois Facebook Album ID</p>
+							</p>
+							<p>
+								<label for="nav_pos">Website Nav Position: </label>
+								<input type="text" name="nav_pos" placeholder="{{tattoo.nav_pos}}" ng-model="tattooData.nav_pos"/>
+								<p ng-show="noNavPos">Please enter a Tattoist Nav Position</p>
+							</p>
+							<p>
+								<button ng-click="update_tattoo_info()">Update</button>
+							</p>
+						</form>
+	                </div>
+	            </div>
+	        </div>
+	    </div><!-- morph-button -->
+	</div><!-- end col-right -->
+
+</div>
+
+
+
+
+    
