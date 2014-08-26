@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adminApp')
-  .directive('fullpage', function (CommonMain) {
+  .directive('fullpage', function (CommonMain, $timeout) {
     return {
       templateUrl: 'src/fullpage/views/fullpage.html',
       restrict: 'AE', 
@@ -12,6 +12,8 @@ angular.module('adminApp')
 
       	scope.displayForm = false;
       	scope.editTattoist = false;
+        scope.addTattoist = false;
+        scope.alertMsg = false;
 
       	//validation
       	scope.noName = false;
@@ -51,13 +53,53 @@ angular.module('adminApp')
 		          // success
 		          if(d){
 		          	scope.update_tattoo_content();
-		          	//scope.displayForm = !scope.displayForm;
-
+                console.log(d)
+                if (d.success == true){
+                  scope.message = '<i class="fa fa-check-square"></i> ' + d.msg;
+                  scope.successMsg = true;
+                  $timeout(function(){scope.resetForm()}, 2000);
+                } else if (d.success == false){
+                  scope.message = '' + d.msg;
+                  scope.successMsg = true;
+                }
 		          }
 		        }, function(d) {
 		          // request rejected (error)
 		        });
       	}
+
+        scope.insert_new_tattoist = function(){
+          CommonMain.insert_tattoo_info(scope.tattooData).then( function(d) {
+              // success
+              if(d){
+                scope.update_tattoo_content();
+
+              }
+            }, function(d) {
+              // request rejected (error)
+            });
+        }
+
+        scope.remove_tattoist = function(id, name){
+          scope.tattoisToRemove = id;
+          scope.tattoistName = name;
+          scope.editTattoist = true;
+          scope.alertMsg = true;     
+        }
+
+        scope.confirm_delete = function(){
+          CommonMain.remove_tattoo_info(scope.tattoisToRemove).then( function(d) {
+              // success
+              if(d){
+                scope.update_tattoo_content();
+                scope.resetForm();
+                console.log(d)
+
+              }
+            }, function(d) {
+              // request rejected (error)
+            });
+        } 
 
       	scope.resetForm = function(){
       		scope.editTattoist = false; 
@@ -67,17 +109,29 @@ angular.module('adminApp')
       		scope.noFbID = false; 
       		scope.noFbAlbumID = false;
       		scope.noNavPos = false; 
+          scope.addTattoist = false;
+          scope.alertMsg = false;
+          scope.tattoisToRemove = null;
+          scope.tattoistName = null;
+          scope.message = null;
+          scope.successMsg = false;
       	}
 
       	scope.showForm = function(){
-			scope.displayForm = !scope.displayForm;
+          scope.displayForm = !scope.displayForm;
       	}
 
       	scope.displayTattoistForm = function(id){
-			scope.editTattoist = !scope.editTattoist;
-			scope.tattooID = id;
-			scope.tattooData.tattoo_id = id;
+    			scope.editTattoist = !scope.editTattoist;
+    			scope.tattooID = id;
+    			scope.tattooData.tattoo_id = id;
       	}
+
+        scope.addNewTattoist = function(){
+          scope.tattooData = {};
+          scope.addTattoist = true;
+          scope.editTattoist = !scope.editTattoist;
+        }
 
       	scope.update_general_content = function(){
       		CommonMain.general_info().then( function(d) {
@@ -114,9 +168,9 @@ angular.module('adminApp')
       		if (oldvalue === newvalue){
       			return;
       		} else{
-				scope.update_general_content();
-				scope.update_tattoo_content();
-			}
+    				scope.update_general_content();
+    				scope.update_tattoo_content();
+    			}
       	});
 
 

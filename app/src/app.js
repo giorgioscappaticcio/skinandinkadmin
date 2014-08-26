@@ -6,7 +6,6 @@ angular.module('adminApp', [
   'ngSanitize',
   'ngRoute'
 ])
-  
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
