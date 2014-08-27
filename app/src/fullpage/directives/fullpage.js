@@ -14,9 +14,17 @@ angular.module('adminApp')
       	scope.editTattoist = false;
         scope.addTattoist = false;
         scope.alertMsg = false;
+        scope.successMsg = true;
+        scope.showLoader = true;
+
+        scope.green = {
+          'color' : 'green'
+        }
 
       	//validation
       	scope.noName = false;
+
+        scope.message = '<i class="fa fa-info-circle"></i> ' + 'Waiting Tattoist list loading...';
 
       	scope.update_general_info = function(){
       		CommonMain.update_general_info(scope.formData).then( function(d) {
@@ -32,7 +40,9 @@ angular.module('adminApp')
       	}
 
       	scope.update_tattoo_info = function(){
-      		scope.noName = false;
+          //scope.editTattoist = false;
+          scope.message = '<i class="fa fa-cog rotate"></i> ' + 'Uploading content';
+          scope.noName = false;
       		scope.noFbID = false; 
       		scope.noFbAlbumID = false;
       		scope.noNavPos = false; 
@@ -52,12 +62,13 @@ angular.module('adminApp')
       		CommonMain.update_tattoo_info(scope.tattooData).then( function(d) {
 		          // success
 		          if(d){
-		          	scope.update_tattoo_content();
-                console.log(d)
+		          	console.log(d)
                 if (d.success == true){
-                  scope.message = '<i class="fa fa-check-square"></i> ' + d.msg;
+                  scope.message = '<span class="green"><i class="fa fa-check-square"></i> ' + d.msg + '</span>';
                   scope.successMsg = true;
-                  $timeout(function(){scope.resetForm()}, 2000);
+                  $timeout(function(){
+                    scope.message = '<i class="fa fa-chevron-circle-down"></i> Fill the form below to update the content';
+                  }, 5000);
                 } else if (d.success == false){
                   scope.message = '' + d.msg;
                   scope.successMsg = true;
@@ -72,8 +83,16 @@ angular.module('adminApp')
           CommonMain.insert_tattoo_info(scope.tattooData).then( function(d) {
               // success
               if(d){
-                scope.update_tattoo_content();
-
+                //scope.update_tattoo_content();
+                if (d.success == true ){
+                  scope.tattooData = {};
+                  scope.message = '<span class="green"><i class="fa fa-check-square"></i> ' + d.msg + '</span>';
+                  $timeout(function(){
+                    scope.message = '<i class="fa fa-chevron-circle-down"></i> ' + 'Fill the form below to add a new Tattoist';
+                  }, 5000);
+                } else if (d.success == false){
+                  scope.message = '' + d.msg;
+                }
               }
             }, function(d) {
               // request rejected (error)
@@ -84,7 +103,8 @@ angular.module('adminApp')
           scope.tattoisToRemove = id;
           scope.tattoistName = name;
           scope.editTattoist = true;
-          scope.alertMsg = true;     
+          scope.alertMsg = true;  
+          scope.message = '<i class="fa fa-exclamation-triangle"></i> Warning: Delete confirmation.' 
         }
 
         scope.confirm_delete = function(){
@@ -102,7 +122,8 @@ angular.module('adminApp')
         } 
 
       	scope.resetForm = function(){
-      		scope.editTattoist = false; 
+      		scope.update_tattoo_content();
+          scope.editTattoist = false; 
       		scope.tattooID = null;
       		scope.tattooData = {};
       		scope.noName = false;
@@ -113,8 +134,8 @@ angular.module('adminApp')
           scope.alertMsg = false;
           scope.tattoisToRemove = null;
           scope.tattoistName = null;
-          scope.message = null;
-          scope.successMsg = false;
+          //scope.message = '<i class="fa fa-chevron-circle-down"></i> ' + 'Edit Facebook info from in the list below';
+          scope.successMsg = true;
       	}
 
       	scope.showForm = function(){
@@ -125,11 +146,13 @@ angular.module('adminApp')
     			scope.editTattoist = !scope.editTattoist;
     			scope.tattooID = id;
     			scope.tattooData.tattoo_id = id;
+          scope.message = '<i class="fa fa-chevron-circle-down"></i> Fill the form below to update the Tattoist';
       	}
 
         scope.addNewTattoist = function(){
           scope.tattooData = {};
           scope.addTattoist = true;
+          scope.message = '<i class="fa fa-chevron-circle-down"></i> ' + 'Fill the form below to add a new Tattoist';
           scope.editTattoist = !scope.editTattoist;
         }
 
@@ -154,7 +177,9 @@ angular.module('adminApp')
 		          if(d){
 		          	scope.tattooInfo = d;
 		          	console.log(scope.tattooInfo)
-		          	
+		          	scope.showLoader = false;
+                scope.message = '<i class="fa fa-chevron-circle-down"></i> ' + 'Edit Facebook info from in the list below';
+
 		          }
 		        }, function(d) {
 		          // request rejected (error)

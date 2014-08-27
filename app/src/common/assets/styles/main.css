@@ -1,4 +1,13 @@
 /* --------------------------
+  # COLORS
+----------------------------*/
+.green {
+  color: green;
+}
+
+
+
+/* --------------------------
   # CSS HACKS
 ----------------------------*/
 .clearfix:after {
@@ -86,9 +95,12 @@
   cursor: pointer;
 }
 
+.morph-content .wrap-message {
+  height: 25px;
+}
+
 .morph-content form {
   padding: 0px 30px 10px 30px;
-  margin-top: -20px;
 }
 
 .morph-content input[type="text"] {
@@ -101,10 +113,16 @@
   margin-top: 10%;
 }
 .morph-content .success-message {
-  padding: 10px 30px;
+  padding: 1px 30px;
   text-transform: uppercase;
   font-size: 0.8em;
   font-weight: bold;
+}
+.morph-content .loader {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin: 40% auto 0;
 }
 
 
@@ -115,12 +133,13 @@
   # TATTOO LIST
 ----------------------------*/
 .tattoList-wrapper {
-  height: 430px;
-  overflow-y: scroll; 
+  height: 380px;
+  overflow-y: scroll;
+  margin-top: 10px;
 }
 ul.tattooList {
   list-style: none;
-  padding: 0 20px 0px 10px;
+  padding: 0 32px 0px 24px;
 }
   
   ul.tattooList li {
@@ -144,3 +163,21 @@ ul.tattooList {
      font-size: .8em;
      padding: 20px 0px 0px;
     }
+
+
+
+
+/* --------------------------
+  # ANIMATION
+----------------------------*/
+.rotate {
+  -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+      animation:spin 4s linear infinite;
+   
+  /*overflow:hidden;*/
+}  
+ 
+-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

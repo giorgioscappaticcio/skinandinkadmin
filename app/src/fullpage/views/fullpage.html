@@ -56,14 +56,20 @@
 	                    	<span ng-hide="editTattoist" ng-click="addNewTattoist();"><i class="fa fa-plus-square"></i> Add Tattoist</span>
 	                    	<span ng-show="editTattoist" ng-click="resetForm()"><i class="fa fa-reply"></i> Back to list</span>
 	                    </h2>
-	                    <!-- Alert Message -->
+	                    <!-- Update Message -->
+	                    <div class="wrap-message">
+		                    <div class="success-message" ng-show="successMsg">
+		                    	<p ng-bind-html="message"></p>
+		                    </div>
+		                </div>
+		                <!-- Alert Message -->
 	                    <div class="alert-message" ng-show="alertMsg">
 	                    	<p>Are you sure you want to delete <strong>{{tattoistName}}</strong> ?</p>
 	                    	<button ng-click="confirm_delete();"><i class="fa fa-times-circle"></i> Delete</button>
 	                    </div>
-	                    <!-- Update Message -->
-	                    <div class="success-message" ng-show="successMsg">
-	                    	<p ng-bind-html="message"></p>
+		                <!-- Loader -->
+	                    <div class="loader" ng-show="showLoader">
+	                    	<i class="fa fa-cog rotate"></i>
 	                    </div>
 	                    <!-- Display Tattoist -->
 	                    <div class="tattoList-wrapper" ng-hide="editTattoist">
@@ -71,7 +77,7 @@
 		                    	<li ng-repeat="tattoo in tattooInfo | orderBy:'nav_pos'">
 									<p ng-bind="tattoo.title"></p>
 									<span class="sub-edit" ng-click="displayTattoistForm(tattoo.id)"><i class="fa fa-pencil-square-o"></i> Edit</span>
-									<span class="sub-edit" ng-click="remove_tattoist(tattoo.id, tattoo.title)"><i class="fa fa-eraser"></i> Remove</span>
+									<span class="sub-edit" ng-click="remove_tattoist(tattoo.id, tattoo.title)"><i class="fa fa-eraser"></i> Delete</span>
 								</li>
 							</ul>
 						</div>
@@ -79,22 +85,22 @@
 	                    <form ng-repeat="tattoo in tattooInfo" ng-show="tattoo.id == tattooID">
 							<p>
 								<label for="fb_id">Tattoist Name: </label>
-								<input type="text" ng-minlength="1" name="tattoo_name" placeholder="{{tattoo.title}}" ng-model="tattooData.tattoo_name" />
+								<input type="text" ng-minlength="1" name="tattoo_name" placeholder="{{tattoo.title}}" ng-model="tattooData.tattoo_name" ng-click="tattooData.tattoo_name=tattoo.title" />
 								<p ng-show="noName">Please enter a Tattoist name</p>
 							</p>
 							<p>
 								<label for="fb_id">Facebook ID: </label>
-								<input type="text" name="fb_id" placeholder="{{tattoo.fb_id}}" ng-model="tattooData.fb_id" />
+								<input type="text" name="fb_id" placeholder="{{tattoo.fb_id}}" ng-model="tattooData.fb_id" ng-click="tattooData.fb_id=tattoo.fb_id" />
 								<p ng-show="noFbID">Please enter a Tattoist Facebook ID</p>
 							</p>
 							<p>
 								<label for="fb_album">Facebook Album ID: </label>
-								<input type="text" name="fb_album" placeholder="{{tattoo.fb_album}}" ng-model="tattooData.fb_album"/>
+								<input type="text" name="fb_album" placeholder="{{tattoo.fb_album}}" ng-model="tattooData.fb_album" ng-click="tattooData.fb_album=tattoo.fb_album"/>
 								<p ng-show="noFbAlbumID">Please enter a Tattois Facebook Album ID</p>
 							</p>
 							<p>
 								<label for="nav_pos">Website Nav Position: </label>
-								<input type="text" name="nav_pos" placeholder="{{tattoo.nav_pos}}" ng-model="tattooData.nav_pos"/>
+								<input type="text" name="nav_pos" placeholder="{{tattoo.nav_pos}}" ng-model="tattooData.nav_pos" ng-click="tattooData.nav_pos=tattoo.nav_pos"/>
 								<p ng-show="noNavPos">Please enter a Tattoist Nav Position</p>
 							</p>
 							<p>
@@ -124,7 +130,7 @@
 								<p ng-show="noNavPos">Please enter a Tattoist Nav Position</p>
 							</p>
 							<p>
-								<button ng-click="insert_new_tattoist()"><i class="fa fa-plus-circle"></i> Add</button>
+								<button ng-click="insert_new_tattoist()"><i class="fa fa-plus-circle"></i> Add New</button>
 							</p>
 							<div class="alert-message" ng-show="alertMsg">
 								<p>Are you sure you want to delete <strong>{{tattoistName}}</strong> ?</p>
