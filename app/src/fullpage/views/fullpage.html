@@ -8,6 +8,12 @@
 	                <div class="content-style-form content-style-form-1">
 	                    <span class="icon icon-close">Close the dialog</span>
 	                    <h2>SkinandInk <i class="fa fa-facebook-square"></i> Like Page</h2>
+	                    <!-- Update Message -->
+	                    <div class="wrap-message">
+		                    <div class="success-message" ng-show="successMsg">
+		                    	<p ng-bind-html="message_general_info"></p>
+		                    </div>
+		                </div>
 	                    <form ng-repeat="info in studioInfo" ng-hide="displayForm">
 							<p>
 								<label for="fb_id">Facebook ID: </label>
@@ -21,23 +27,23 @@
 								<label for="fb_piercing_album">Facebook Piercing Album ID: </label>
 								<input type="text" name="fb_piercing_album" placeholder="{{info.fb_piercing_album}}" disabled=""/>
 							</p>
-							<p><button ng-click="showForm()">Edit</button></p>
+							<p><button ng-click="showForm()"><i class="fa fa-pencil"></i> Edit</button></p>
 						</form>
 	                    <form ng-repeat="info in studioInfo" ng-show="displayForm">
 							<p>
 								<label for="fb_id">Facebook ID: </label>
-								<input type="text" name="fb_id" placeholder="{{info.fb_id}}" ng-model="formData.fb_id" />
+								<input type="text" name="fb_id" placeholder="{{info.fb_id}}" ng-model="formData.fb_id" ng-click="formData.fb_id=info.fb_id" />
 							</p>
 							<p>
 								<label for="fb_album">Facebook Album ID: </label>
-								<input type="text" name="fb_album" placeholder="{{info.fb_album}}" ng-model="formData.fb_album"/>
+								<input type="text" name="fb_album" placeholder="{{info.fb_album}}" ng-model="formData.fb_album" ng-click="formData.fb_album=info.fb_album" />
 							</p>
 							<p>
 								<label for="fb_piercing_album">Facebook Piercing Album ID: </label>
-								<input type="text" name="fb_piercing_album" placeholder="{{info.fb_piercing_album}}" ng-model="formData.fb_piercing_album"/>
+								<input type="text" name="fb_piercing_album" placeholder="{{info.fb_piercing_album}}" ng-model="formData.fb_piercing_album" ng-click="formData.fb_piercing_album=info.fb_piercing_album"/>
 							</p>
 							<p>
-								<button ng-click="update_general_info()">Update</button>
+								<button ng-click="update_general_info()"><i class="fa fa-cloud-upload"></i> Update</button>
 							</p>
 						</form>
 	                </div>
@@ -104,7 +110,7 @@
 								<p ng-show="noNavPos">Please enter a Tattoist Nav Position</p>
 							</p>
 							<p>
-								<button ng-click="update_tattoo_info()"><i class="fa fa-pencil"></i> Update</button>
+								<button ng-click="update_tattoo_info()"><i class="fa fa-cloud-upload"></i> Update</button>
 							</p>
 						</form>
 						<!-- Edit Tattoist -->

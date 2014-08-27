@@ -25,6 +25,7 @@ angular.module('adminApp')
       	scope.noName = false;
 
         scope.message = '<i class="fa fa-info-circle"></i> ' + 'Waiting Tattoist list loading...';
+        scope.message_general_info = '<i class="fa fa-info-circle"></i> ' + 'Click Edit to update the info';
 
       	scope.update_general_info = function(){
       		CommonMain.update_general_info(scope.formData).then( function(d) {
@@ -32,6 +33,14 @@ angular.module('adminApp')
 		          if(d){
 		          	scope.update_general_content();
 		          	scope.displayForm = !scope.displayForm;
+                if (d.success == true) {
+                  scope.message_general_info = '<span class="green"><i class="fa fa-check-square"></i> ' + d.msg + '</span>';
+                  $timeout(function(){
+                    scope.message_general_info = '<i class="fa fa-info-circle"></i> ' + 'Click Edit to update the info';
+                  }, 5000);
+                } else if (d.success == false){
+                  scope.message_general_info = '<i class="fa fa-info-circle"></i> ' + d.msg;
+                }
 
 		          }
 		        }, function(d) {
@@ -139,6 +148,7 @@ angular.module('adminApp')
       	}
 
       	scope.showForm = function(){
+          scope.message_general_info = '<i class="fa fa-info-circle"></i> ' + 'Fill the form to update the info';
           scope.displayForm = !scope.displayForm;
       	}
 
@@ -161,7 +171,7 @@ angular.module('adminApp')
 		          // success
 		          if(d){
 		          	scope.studioInfo = d;
-		          	console.log(scope.studioInfo)
+		          	console.log(scope.studioInfo);
 		          	
 		          }
 		        }, function(d) {
