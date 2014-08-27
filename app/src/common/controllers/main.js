@@ -15,7 +15,10 @@ angular.module('adminApp')
         $scope.isVisible = !$scope.isVisible;
     }
     
-
+    $scope.backHome = function () {
+      $scope.isVisible = !$scope.isVisible;
+      $scope.fb_integration = false;
+    }
     
 
 

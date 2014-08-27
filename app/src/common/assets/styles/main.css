@@ -36,7 +36,7 @@
   height: 50%;
   color: #fff;
   margin: 0 auto;
-  top: 50%;
+  top: 40%;
   position: relative;
   text-align: center;
 }
@@ -70,6 +70,24 @@
   .fullpage .full-page-content .col-left{
     text-align: right;
   }
+
+.fullpage .back-home {
+  position: fixed;
+  right: 40px;
+  top: 40px;
+  color: rgb(225, 200, 38);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  border: 2px solid rgb(225, 200, 38);
+  padding: 8px 8px 10px 10px;
+  font-size: 25px;
+}
+
+.fullpage .back-home:hover {
+  color: rgb(156, 138, 23);
+  border: 2px solid rgb(156, 138, 23);
+}
 
 
 
